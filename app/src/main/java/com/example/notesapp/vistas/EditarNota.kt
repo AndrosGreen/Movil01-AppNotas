@@ -30,7 +30,7 @@ import com.example.notesapp.datos.Nota
 import com.example.notesapp.datos.NotasDatabase
 
 @Composable
-fun NotaDetalle (navController: NavController?){
+fun EditarNota (navController: NavController?){
 
     var txtTitulo by remember { mutableStateOf("")}
     var txtDetalle by remember { mutableStateOf("")}
@@ -100,7 +100,6 @@ fun NotaDetalle (navController: NavController?){
         FloatingActionButton(
             onClick = {
                 val nota = Nota( titulo =  txtTitulo, descripcion = txtDetalle)
-                insertarNota(context,nota)
                 Toast.makeText(context, "nota agregada con exito" , Toast.LENGTH_SHORT).show()
                 navController?.navigate(Screen.MainScreen.route)
             },
@@ -112,13 +111,13 @@ fun NotaDetalle (navController: NavController?){
     }
 }
 
-fun insertarNota(context : Context, nota: Nota){
+fun ActualizarNota(context : Context, nota: Nota){
     val db = NotasDatabase.getDatabase(context)
     db.notaDao().addNota(nota)
 }
 
 @Composable
 @Preview
-fun PreviewNotaDetalle(){
+fun PreviewEditarNota(){
     NotaDetalle(null)
 }

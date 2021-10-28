@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.notesapp.vistas.EditarNota
 import com.example.notesapp.vistas.NotaDetalle
 import com.example.notesapp.vistas.VistaNotas
 
@@ -16,6 +17,9 @@ fun Navigation (){
         }
         composable(route = Screen.DetailScreen.route){
             NotaDetalle( navController = navController )
+        }
+        composable(route = Screen.EditarNota.route){
+            EditarNota( navController = navController )
         }
     }
 }
