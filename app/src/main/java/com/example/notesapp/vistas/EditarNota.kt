@@ -23,31 +23,43 @@ import com.example.notesapp.Screen
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
-import com.example.notesapp.componentes.BarraNavegacion
+import com.example.notesapp.componentes.BarraNavegacionAcciones
 import com.example.notesapp.datos.Nota
 import com.example.notesapp.datos.NotasDatabase
+import com.example.notesapp.R
 
 @Composable
-fun EditarNota (navController: NavController?){
+fun EditarNota (navController: NavController?, id: String?){
 
-    var txtTitulo by remember { mutableStateOf("")}
-    var txtDetalle by remember { mutableStateOf("")}
-    val context = LocalContext.current
 
-    BarraNavegacion()
+    val contex = LocalContext.current;
+    val db = NotasDatabase.getDatabase(contex);
+    var idLong = 0L
+    if(id != null){
+        idLong = id.toLong()
+    }
+    val nota = db.notaDao().getNota(idLong)
+    var msgUpdated = stringResource(id = R.string.noteUpdated)
+    var msgDeleted = stringResource(id = R.string.noteDeleted)
+
+    var txtTitulo by remember { mutableStateOf(nota.titulo)}
+    var txtDetalle by remember { mutableStateOf(nota.descripcion)}
+
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BarraNavegacion()
+        BarraNavegacionAcciones( { eliminarNota(contex, nota,navController,msgDeleted)} )
         Row(modifier = Modifier.weight(0.3f,true)) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .fillMaxHeight()
-                    .padding(horizontal = 20.dp,vertical = 16.dp)
+                    .padding(horizontal = 20.dp, vertical = 16.dp)
             ){
                 BasicTextField(
                     value = txtTitulo,
@@ -60,7 +72,7 @@ fun EditarNota (navController: NavController?){
                     textStyle = TextStyle(fontSize = 28.sp)
                 )
                 if (txtTitulo == ""){
-                    Text(text = "Titulo", fontSize = 28.sp)
+                    Text(text = stringResource(id = R.string.title), fontSize = 28.sp)
                 }
             }
         }
@@ -83,7 +95,7 @@ fun EditarNota (navController: NavController?){
                     textStyle = TextStyle(fontSize = 16.sp)
                 )
                 if (txtDetalle == ""){
-                    Text(text = "Escribe algo...", fontSize = 16.sp)
+                    Text(text = stringResource(id = R.string.type), fontSize = 16.sp)
                 }
             }
         }
@@ -99,8 +111,9 @@ fun EditarNota (navController: NavController?){
     ) {
         FloatingActionButton(
             onClick = {
-                val nota = Nota( titulo =  txtTitulo, descripcion = txtDetalle)
-                Toast.makeText(context, "nota agregada con exito" , Toast.LENGTH_SHORT).show()
+                val nota = Nota( id = idLong, titulo =  txtTitulo, descripcion = txtDetalle)
+                ActualizarNota(contex,nota)
+                Toast.makeText(contex, msgUpdated , Toast.LENGTH_SHORT).show()
                 navController?.navigate(Screen.MainScreen.route)
             },
             backgroundColor = MaterialTheme.colors.secondary,
@@ -111,9 +124,16 @@ fun EditarNota (navController: NavController?){
     }
 }
 
+fun eliminarNota(context: Context, nota: Nota, navController: NavController?, msgDeleted: String){
+    val db = NotasDatabase.getDatabase(context)
+    db.notaDao().deleteNota(nota)
+    Toast.makeText(context, msgDeleted , Toast.LENGTH_SHORT).show()
+    navController?.navigate(Screen.MainScreen.route)
+}
+
 fun ActualizarNota(context : Context, nota: Nota){
     val db = NotasDatabase.getDatabase(context)
-    db.notaDao().addNota(nota)
+    db.notaDao().updateNota(nota)
 }
 
 @Composable

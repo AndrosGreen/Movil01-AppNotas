@@ -37,7 +37,10 @@ fun VistaNotas (navController: NavController?){
             .fillMaxWidth()
         ){
             items(notas){ nota ->
-                Surface(modifier = Modifier.clickable {  }) {
+                Surface(modifier = Modifier.clickable {
+                    var id = nota.id.toString()
+                    navController?.navigate(Screen.EditarNota.withArgs(id))
+                }) {
                     Text(text = nota.titulo, fontSize = 24.sp)
                 }
             }

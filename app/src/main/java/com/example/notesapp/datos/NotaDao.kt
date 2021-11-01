@@ -15,4 +15,8 @@ interface NotaDao {
 
     @Query("SELECT * FROM note_table ORDER BY id ASC")
     fun getNotas(): List<Nota>
+
+    @Query("SELECT * FROM note_table where id = :id")
+    fun getNota(id: Long): Nota
+
 }

@@ -23,11 +23,13 @@ import com.example.notesapp.Screen
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import com.example.notesapp.componentes.BarraNavegacion
 import com.example.notesapp.datos.Nota
 import com.example.notesapp.datos.NotasDatabase
+import com.example.notesapp.R
 
 @Composable
 fun NotaDetalle (navController: NavController?){
@@ -35,6 +37,7 @@ fun NotaDetalle (navController: NavController?){
     var txtTitulo by remember { mutableStateOf("")}
     var txtDetalle by remember { mutableStateOf("")}
     val context = LocalContext.current
+    var msgAdd = stringResource(id = R.string.noteAdded)
 
     BarraNavegacion()
     Column(
@@ -47,7 +50,7 @@ fun NotaDetalle (navController: NavController?){
                 modifier = Modifier
                     .fillMaxSize()
                     .fillMaxHeight()
-                    .padding(horizontal = 20.dp,vertical = 16.dp)
+                    .padding(horizontal = 20.dp, vertical = 16.dp)
             ){
                 BasicTextField(
                     value = txtTitulo,
@@ -60,7 +63,7 @@ fun NotaDetalle (navController: NavController?){
                     textStyle = TextStyle(fontSize = 28.sp)
                 )
                 if (txtTitulo == ""){
-                    Text(text = "Titulo", fontSize = 28.sp)
+                    Text(text = stringResource(id = R.string.title), fontSize = 28.sp)
                 }
             }
         }
@@ -83,7 +86,7 @@ fun NotaDetalle (navController: NavController?){
                     textStyle = TextStyle(fontSize = 16.sp)
                 )
                 if (txtDetalle == ""){
-                    Text(text = "Escribe algo...", fontSize = 16.sp)
+                    Text(text = stringResource(id = R.string.type), fontSize = 16.sp)
                 }
             }
         }
@@ -101,7 +104,7 @@ fun NotaDetalle (navController: NavController?){
             onClick = {
                 val nota = Nota( titulo =  txtTitulo, descripcion = txtDetalle)
                 insertarNota(context,nota)
-                Toast.makeText(context, "nota agregada con exito" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, msgAdd , Toast.LENGTH_SHORT).show()
                 navController?.navigate(Screen.MainScreen.route)
             },
             backgroundColor = MaterialTheme.colors.secondary,
