@@ -50,6 +50,8 @@ fun EditarNota (navController: NavController?, id: String?){
 
     var txtTitulo by remember { mutableStateOf(nota.titulo)}
     var txtDetalle by remember { mutableStateOf(nota.descripcion)}
+    var esTarea by remember { mutableStateOf(nota.esTarea) }
+    var fechaLimite by remember { mutableStateOf(nota.fechaLimite)}
 
     val viewModel: SpinnerViewModel = viewModel()
     val dateTime = viewModel.time.observeAsState()
@@ -60,6 +62,10 @@ fun EditarNota (navController: NavController?, id: String?){
     ) {
         BarraNavegacionAcciones( { eliminarNota(context, nota,navController,msgDeleted)}, {
             viewModel.selectDateTime(context)
+
+            val nota = Nota( id = idLong, titulo =  txtTitulo, descripcion = txtDetalle,esTarea,fechaLimite)
+            ActualizarNota(context,nota)
+
         } )
         Row(modifier = Modifier.weight(0.3f,true)) {
             Box(
@@ -106,7 +112,7 @@ fun EditarNota (navController: NavController?, id: String?){
                 }
             }
         }
-        Text(text = dateTime.value?.imprimir()?: "No Time Set")
+        Text(text = fechaLimite)
 
     }
     Column(
@@ -118,7 +124,15 @@ fun EditarNota (navController: NavController?, id: String?){
     ) {
         FloatingActionButton(
             onClick = {
-                val nota = Nota( id = idLong, titulo =  txtTitulo, descripcion = txtDetalle)
+
+                if(dateTime.value != null){
+                    if(dateTime.value!!.imprimir() == "0/0/0 - 0:0") {
+                        fechaLimite = dateTime.value!!.imprimir()
+                        esTarea = true
+                    }
+                }
+
+                val nota = Nota( id = idLong, titulo =  txtTitulo, descripcion = txtDetalle,esTarea,fechaLimite)
                 ActualizarNota(context,nota)
                 Toast.makeText(context, msgUpdated , Toast.LENGTH_SHORT).show()
                 navController?.navigate(Screen.MainScreen.route)

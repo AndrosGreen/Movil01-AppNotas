@@ -17,7 +17,13 @@ fun Navigation (){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.MainScreen.route){
         composable(route = Screen.MainScreen.route){
-            VistaNotas( navController = navController )
+            VistaNotas( navController = navController , 0)
+        }
+        composable(route = Screen.VistaTareas.route){
+            VistaNotas( navController = navController , 1)
+        }
+        composable(route = Screen.VistaNotas.route){
+            VistaNotas( navController = navController , 2)
         }
         composable(route = Screen.DetailScreen.route){
             NotaDetalle( navController = navController )
