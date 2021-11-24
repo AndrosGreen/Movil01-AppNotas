@@ -24,13 +24,13 @@ fun Navigation (){
         }
         composable(
             route = Screen.EditarNota.route + "/{id}",
-                arguments = listOf(
-                    navArgument("id"){
-                        type = NavType.StringType
-                        defaultValue = "0"
-                        nullable = true
-                    }
-                )
+            arguments = listOf(
+                navArgument("id"){
+                    type = NavType.StringType
+                    defaultValue = "0"
+                    nullable = true
+                }
+            )
         ){
             EditarNota( navController = navController, id = it.arguments?.getString("id") )
         }

@@ -3,6 +3,7 @@ package com.example.notesapp.componentes
 import android.content.Context
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -15,7 +16,8 @@ import com.example.notesapp.R
 
 @Composable
 fun BarraNavegacionAcciones (
-    onOkButton: () -> Unit
+    onOkButton: () -> Unit,
+    onSelectFecha: ()-> Unit
 ){
 
     var showDialog by remember { mutableStateOf(false) }
@@ -28,6 +30,12 @@ fun BarraNavegacionAcciones (
             IconButton(onClick = { showDialog = true }) {
                 Icon(
                     Icons.Filled.Delete,
+                    contentDescription = "Back arrow"
+                )
+            }
+            IconButton(onClick = { onSelectFecha() }) {
+                Icon(
+                    Icons.Filled.DateRange,
                     contentDescription = "Back arrow"
                 )
             }
