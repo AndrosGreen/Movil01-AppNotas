@@ -18,15 +18,24 @@ import com.example.notesapp.Screen
 import com.example.notesapp.componentes.BarraNavegacion
 import com.example.notesapp.datos.NotasDatabase
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.ui.unit.sp
+import com.example.notesapp.componentes.BarraNavegacionBottom
 
 @Composable
-fun VistaNotas (navController: NavController?){
+fun VistaNotas (navController: NavController?, tipo : Int){
 
     val contex = LocalContext.current;
     val db = NotasDatabase.getDatabase(contex);
-    var notas = db.notaDao().getNotas()
-
+    var notas = db.notaDao().getTodos()
+    
+    if(tipo == 1){
+        notas = db.notaDao().getTareas()
+    }
+    if(tipo == 2){
+        notas = db.notaDao().getNotas()
+    }
+    
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -45,11 +54,20 @@ fun VistaNotas (navController: NavController?){
                 }
             }
         }
+
+    }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom,
+    ) {
+        BarraNavegacionBottom(navController = navController)
     }
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp),
+            .padding(20.dp)
+            .padding(bottom = 50.dp),
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.End
     ) {
@@ -62,12 +80,14 @@ fun VistaNotas (navController: NavController?){
         ) {
             Icon(Icons.Filled.Add,"")
         }
+
     }
+
 }
 
 @Composable
 @Preview
 fun PreviewVistaNotas(){
-    VistaNotas(null)
+    VistaNotas(null,0)
 }
 

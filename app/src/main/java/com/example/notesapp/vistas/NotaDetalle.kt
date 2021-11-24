@@ -102,7 +102,7 @@ fun NotaDetalle (navController: NavController?){
     ) {
         FloatingActionButton(
             onClick = {
-                val nota = Nota( titulo =  txtTitulo, descripcion = txtDetalle)
+                val nota = Nota( titulo =  txtTitulo, descripcion = txtDetalle,esTarea = false, fechaLimite =  "")
                 insertarNota(context,nota)
                 Toast.makeText(context, msgAdd , Toast.LENGTH_SHORT).show()
                 navController?.navigate(Screen.MainScreen.route)

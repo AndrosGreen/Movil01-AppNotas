@@ -10,7 +10,7 @@ import com.example.notesapp.Fecha
 import java.util.*
 
 class SpinnerViewModel : ViewModel(){
-    var tmpFecha = Fecha(2021,11,23,20,33)
+    var tmpFecha = Fecha(0,0,0,0,0)
     private val _time = MutableLiveData(tmpFecha)
     var time : LiveData<Fecha> = _time
 
