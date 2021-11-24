@@ -21,22 +21,25 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.notesapp.Screen
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.notesapp.componentes.BarraNavegacionAcciones
 import com.example.notesapp.datos.Nota
 import com.example.notesapp.datos.NotasDatabase
 import com.example.notesapp.R
+import com.example.notesapp.viewmodel.SpinnerViewModel
 
 @Composable
 fun EditarNota (navController: NavController?, id: String?){
 
 
-    val contex = LocalContext.current;
-    val db = NotasDatabase.getDatabase(contex);
+    val context = LocalContext.current;
+    val db = NotasDatabase.getDatabase(context);
     var idLong = 0L
     if(id != null){
         idLong = id.toLong()
@@ -48,12 +51,16 @@ fun EditarNota (navController: NavController?, id: String?){
     var txtTitulo by remember { mutableStateOf(nota.titulo)}
     var txtDetalle by remember { mutableStateOf(nota.descripcion)}
 
+    val viewModel: SpinnerViewModel = viewModel()
+    val dateTime = viewModel.time.observeAsState()
 
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BarraNavegacionAcciones( { eliminarNota(contex, nota,navController,msgDeleted)} )
+        BarraNavegacionAcciones( { eliminarNota(context, nota,navController,msgDeleted)}, {
+            viewModel.selectDateTime(context)
+        } )
         Row(modifier = Modifier.weight(0.3f,true)) {
             Box(
                 modifier = Modifier
@@ -99,7 +106,7 @@ fun EditarNota (navController: NavController?, id: String?){
                 }
             }
         }
-
+        Text(text = dateTime.value?.imprimir()?: "No Time Set")
 
     }
     Column(
@@ -112,8 +119,8 @@ fun EditarNota (navController: NavController?, id: String?){
         FloatingActionButton(
             onClick = {
                 val nota = Nota( id = idLong, titulo =  txtTitulo, descripcion = txtDetalle)
-                ActualizarNota(contex,nota)
-                Toast.makeText(contex, msgUpdated , Toast.LENGTH_SHORT).show()
+                ActualizarNota(context,nota)
+                Toast.makeText(context, msgUpdated , Toast.LENGTH_SHORT).show()
                 navController?.navigate(Screen.MainScreen.route)
             },
             backgroundColor = MaterialTheme.colors.secondary,
