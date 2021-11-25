@@ -8,6 +8,8 @@ sealed class Screen(val route: String){
     object EditarNota : Screen("editar_nota")
     object VistaTareas: Screen("tareas")
     object VistaNotas: Screen("notas")
+    object VistaMedia: Screen("mediaSelect")
+    object DetalleMedia: Screen("detalleMedia")
 
     fun withArgs( vararg args: String) : String {
         return buildString {

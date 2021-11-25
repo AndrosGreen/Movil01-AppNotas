@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Aplicacion de Notas</string>
+    <string name="media_top">Multimedia</string>
     <string name="title">Titulo</string>
     <string name="type">Escribe algo...</string>
     <string name="noteAdded">nota agredada exitosamente</string>

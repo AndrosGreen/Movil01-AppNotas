@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Notes App</string>
+    <string name="media_top">Media</string>
     <string name="title">Title</string>
     <string name="type">Write something...</string>
     <string name="noteAdded">note added successfully</string>

@@ -32,6 +32,8 @@ import com.example.notesapp.componentes.BarraNavegacionAcciones
 import com.example.notesapp.datos.Nota
 import com.example.notesapp.datos.NotasDatabase
 import com.example.notesapp.R
+import com.example.notesapp.componentes.BarraNavegacionBottom
+import com.example.notesapp.componentes.BarraNavegacionBottomMedia
 import com.example.notesapp.viewmodel.SpinnerViewModel
 
 @Composable
@@ -63,8 +65,8 @@ fun EditarNota (navController: NavController?, id: String?){
         BarraNavegacionAcciones( { eliminarNota(context, nota,navController,msgDeleted)}, {
             viewModel.selectDateTime(context)
 
-            val nota = Nota( id = idLong, titulo =  txtTitulo, descripcion = txtDetalle,esTarea,fechaLimite)
-            ActualizarNota(context,nota)
+            //val nota = Nota( id = idLong, titulo =  txtTitulo, descripcion = txtDetalle,esTarea,fechaLimite)
+            //ActualizarNota(context,nota)
 
         } )
         Row(modifier = Modifier.weight(0.3f,true)) {
@@ -116,9 +118,18 @@ fun EditarNota (navController: NavController?, id: String?){
 
     }
     Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom,
+    ) {
+        BarraNavegacionBottomMedia(navController = navController, id!!)
+    }
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp),
+            .padding(20.dp)
+            .padding(bottom = 50.dp)
+        ,
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.End
     ) {
@@ -126,7 +137,7 @@ fun EditarNota (navController: NavController?, id: String?){
             onClick = {
 
                 if(dateTime.value != null){
-                    if(dateTime.value!!.imprimir() == "0/0/0 - 0:0") {
+                    if(dateTime.value!!.imprimir() != "0/0/0 - 0:0") {
                         fechaLimite = dateTime.value!!.imprimir()
                         esTarea = true
                     }

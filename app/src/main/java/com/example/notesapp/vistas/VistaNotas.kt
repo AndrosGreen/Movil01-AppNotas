@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.sp
+import com.example.notesapp.R
 import com.example.notesapp.componentes.BarraNavegacionBottom
 
 @Composable
@@ -43,7 +44,7 @@ fun VistaNotas (navController: NavController?, tipo : Int){
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BarraNavegacion()
+        BarraNavegacion(R.string.app_name)
         LazyColumn(modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()

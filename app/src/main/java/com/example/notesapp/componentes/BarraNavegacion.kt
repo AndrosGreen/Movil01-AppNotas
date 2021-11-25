@@ -7,8 +7,8 @@ import androidx.compose.ui.res.stringResource
 import com.example.notesapp.R
 
 @Composable
-fun BarraNavegacion (){
+fun BarraNavegacion (id: Int){
     TopAppBar(title = {
-        Text(text = stringResource(id = R.string.app_name))
+        Text(text = stringResource(id = id))
     })
 }

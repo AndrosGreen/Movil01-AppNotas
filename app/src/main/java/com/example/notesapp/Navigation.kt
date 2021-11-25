@@ -8,9 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.notesapp.componentes.BarraNavegacion
 import com.example.notesapp.componentes.BarraNavegacionAcciones
-import com.example.notesapp.vistas.EditarNota
-import com.example.notesapp.vistas.NotaDetalle
-import com.example.notesapp.vistas.VistaNotas
+import com.example.notesapp.vistas.*
 
 @Composable
 fun Navigation (){
@@ -39,6 +37,30 @@ fun Navigation (){
             )
         ){
             EditarNota( navController = navController, id = it.arguments?.getString("id") )
+        }
+        composable(
+            route = Screen.VistaMedia.route + "/{id}",
+            arguments = listOf(
+                navArgument("id"){
+                    type = NavType.StringType
+                    defaultValue = "0"
+                    nullable = true
+                }
+            )
+        ){
+            VistaMedia(navController = navController, id = it.arguments?.getString("id"))
+        }
+        composable(
+            route = Screen.DetalleMedia.route + "/{url}",
+            arguments = listOf(
+                navArgument("url"){
+                    type = NavType.StringType
+                    defaultValue = "0"
+                    nullable = true
+                }
+            )
+        ){
+            DetalleMedia(navController = navController, url = it.arguments?.getString("url"))
         }
     }
 }

@@ -39,12 +39,12 @@ fun NotaDetalle (navController: NavController?){
     val context = LocalContext.current
     var msgAdd = stringResource(id = R.string.noteAdded)
 
-    BarraNavegacion()
+    BarraNavegacion(id = R.string.app_name)
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BarraNavegacion()
+        BarraNavegacion(R.string.app_name)
         Row(modifier = Modifier.weight(0.3f,true)) {
             Box(
                 modifier = Modifier
