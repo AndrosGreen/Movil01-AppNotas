@@ -2,7 +2,6 @@ package com.example.notesapp.datos
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.notesapp.Fecha
 
 @Entity(tableName = "note_table")
 data class Nota (

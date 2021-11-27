@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Nota::class], version = 3, exportSchema = false)
+@Database(entities = [Nota::class,Media::class], version = 3, exportSchema = false)
 abstract class NotasDatabase : RoomDatabase() {
     abstract fun notaDao(): NotaDao
 

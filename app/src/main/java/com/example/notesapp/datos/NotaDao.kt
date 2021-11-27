@@ -4,6 +4,13 @@ import androidx.room.*
 
 @Dao
 interface NotaDao {
+
+    @Insert
+    fun addMedia (media: Media)
+
+    @Update
+    fun updateMedia (media: Media)
+
     @Insert
     fun addNota(nota : Nota)
 
@@ -24,5 +31,8 @@ interface NotaDao {
 
     @Query("SELECT * FROM note_table where id = :id")
     fun getNota(id: Long): Nota
+
+    @Query("SELECT * FROM media_table where idNota = :id")
+    fun getMedias(id: Long): List<Media>
 
 }
