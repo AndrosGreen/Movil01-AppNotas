@@ -36,6 +36,7 @@ import com.example.notesapp.datos.NotasDatabase
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import java.io.File
@@ -222,7 +223,7 @@ fun VistaMedia(
                 backgroundColor = MaterialTheme.colors.secondary,
                 contentColor = Color.Black
             ) {
-                Icon(Icons.Filled.Build,"")
+                Icon(Icons.Filled.Phone,"")
             }
         }
         Row (){

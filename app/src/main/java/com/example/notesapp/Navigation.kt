@@ -1,5 +1,7 @@
 package com.example.notesapp
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -10,6 +12,7 @@ import com.example.notesapp.componentes.BarraNavegacion
 import com.example.notesapp.componentes.BarraNavegacionAcciones
 import com.example.notesapp.vistas.*
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun Navigation (){
     val navController = rememberNavController()
@@ -61,6 +64,30 @@ fun Navigation (){
             )
         ){
             DetalleMedia(navController = navController, url = it.arguments?.getString("url"))
+        }
+        composable(
+            route = Screen.VistaRecordatorios.route + "/{id}",
+            arguments = listOf(
+            navArgument("id"){
+                type = NavType.StringType
+                defaultValue = "0"
+                nullable = true
+            }
+            )
+        ){
+            VistaRecordatorios(navController = navController, idRecordatorio = it.arguments?.getString("id") )
+        }
+        composable(
+            route = Screen.AgregarRecordatorio.route + "/{id}",
+            arguments = listOf(
+                navArgument("id"){
+                    type = NavType.StringType
+                    defaultValue = "0"
+                    nullable = true
+                }
+            )
+        ) {
+            AgregarRecordatorio(navController = navController, id = it.arguments?.getString("id")!!)
         }
     }
 }

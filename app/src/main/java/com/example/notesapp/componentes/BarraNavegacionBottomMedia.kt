@@ -27,6 +27,12 @@ fun BarraNavegacionBottomMedia(
             onClick = { navController?.navigate(Screen.VistaMedia.withArgs(id)) },
             icon = { Icon(Icons.Filled.PlayArrow,"") }
         )
+        BottomNavigationItem(
+            label = { Text(text = "Recordatorios") },
+            selected = true,
+            onClick = { navController?.navigate(Screen.VistaRecordatorios.withArgs(id)) },
+            icon = { Icon(Icons.Filled.Home,"") }
+        )
     }
 }
 
