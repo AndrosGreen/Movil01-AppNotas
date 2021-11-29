@@ -14,6 +14,9 @@ interface NotaDao {
     @Insert
     fun addNota(nota : Nota)
 
+    @Insert
+    fun addRecordatorio(recordatorio: Recordatorio)
+
     @Update
     fun updateNota(nota: Nota)
 
@@ -35,4 +38,6 @@ interface NotaDao {
     @Query("SELECT * FROM media_table where idNota = :id")
     fun getMedias(id: Long): List<Media>
 
+    @Query("SELECT * FROM recordatorio_table where idNota = :id")
+    fun getRecordatorios(id: Long): List<Recordatorio>
 }
