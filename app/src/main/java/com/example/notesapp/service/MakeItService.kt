@@ -99,7 +99,7 @@ class MakeItService : Service (){
             ){
                 setTicker(null)
                 setContentTitle(titulo)
-                setContentText("Make it Easy Description")
+                setContentText("Recuerda realizar la tarea")
                 setAutoCancel(true)
                 setOngoing(true)
                 setWhen(System.currentTimeMillis())
